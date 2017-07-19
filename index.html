@@ -324,37 +324,16 @@
       
         
           
-            <h2 id="什么是less"><a href="#什么是less" class="headerlink" title="什么是less"></a>什么是less</h2><p>less是一门预处理语言，扩展了css语言，增加了变量、Mixin、函数等特性，使css更易维护和扩展。less完全兼容css语法，可以完全使用css语法。</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>在less中可以使用@符号来定义变量。比较常见的是一些颜色值、宽高之类的属性，他们往往会在一个项目中重复出现，若直接定义，会使后期项目的维护与升级变得十分困难。我们可以通过定义变量将这些属性的值集中到一个地方进行维护。</p>
-<p>例如：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@top-height:</span> <span class="number">50px</span>;</div><div class="line"><span class="variable">@letf-width:</span> <span class="number">100px</span>;</div><div class="line"><span class="variable">@bg-color-primary:</span> <span class="number">#2d2d2d</span>; </div><div class="line"></div><div class="line"><span class="selector-class">.left-container</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">z-index</span>: <span class="number">1</span>;</div><div class="line">	<span class="attribute">top</span>: <span class="variable">@top-height</span>;</div><div class="line">	<span class="attribute">left</span>: <span class="variable">@left-width</span>;</div><div class="line">	<span class="attribute">background-color</span>: <span class="variable">@bg-color-primary</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将被编译成</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left-container</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">z-index</span>: <span class="number">1</span>;</div><div class="line">	<span class="attribute">top</span>: <span class="number">50px</span></div><div class="line">	left: <span class="number">100px</span>;</div><div class="line">	<span class="attribute">background-color</span>: <span class="number">#2d2d2d</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>变量不仅仅可以用来定义属性，还可以用来定义其他一系列的元素</p>
-<h4 id="选择器变量"><a href="#选择器变量" class="headerlink" title="选择器变量"></a>选择器变量</h4><p>使用 @{…}的语法来表示选择器</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@mySelector:</span> banner;</div><div class="line"></div><div class="line"><span class="selector-class">.@&#123;mySelector&#125;</span> &#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">line-height</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将被编译成</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.banner</span> &#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">line-height</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="URLs变量"><a href="#URLs变量" class="headerlink" title="URLs变量"></a>URLs变量</h4><p>使用 @{…}的语法来表示选择器</p>
-<p>当一个网页需要通过css引入较多的图片，而图片与css文件处于两个深度很大的子文件中，采用css的写法，就需要写一大堆 “../../“ 之类的路径，这时候就可以采用url变量</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@imagesPath:</span> <span class="string">"../images"</span></div><div class="line"></div><div class="line">.arrow-select &#123;</div><div class="line">	<span class="attribute">cursor</span>: pointer;</div><div class="line">	<span class="attribute">height</span>: <span class="number">24px</span>;</div><div class="line">	<span class="attribute">line-height</span>: <span class="number">24px</span>;</div><div class="line">	<span class="attribute">background</span>: url(<span class="string">"@&#123;imagesPath&#125;/down_crrow.png"</span>) no-repeat center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将被编译成</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.arrow-select</span> &#123;</div><div class="line">	<span class="attribute">cursor</span>: pointer;</div><div class="line">	<span class="attribute">height</span>: <span class="number">24px</span>;</div><div class="line">	<span class="attribute">line-height</span>: <span class="number">24px</span>;</div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"../images/down_crrow.png"</span>) no-repeat center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="属性名变量"><a href="#属性名变量" class="headerlink" title="属性名变量"></a>属性名变量</h4><p>甚至可以使用属性名变量，用较短的变量来表示较长的属性名</p>
-<p>同样使用 @{…}的语法来表示选择器</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@bb:</span> border-bottom;</div><div class="line"><span class="variable">@radius:</span> <span class="number">4px</span></div><div class="line"><span class="variable">@borderColor</span>: <span class="number">#dadada</span>;</div><div class="line"></div><div class="line"><span class="selector-class">.search-icon</span> &#123;</div><div class="line">	<span class="attribute">cursor</span>: pointer;</div><div class="line">	<span class="attribute">text-align</span>: center;</div><div class="line">	<span class="attribute">@&#123;bb&#125;</span>: <span class="number">1px</span> solid <span class="variable">@borderColor</span>;</div><div class="line">	<span class="variable">@&#123;bb&#125;</span><span class="selector-tag">-right-radius</span>: @<span class="selector-tag">radius</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将被编译为</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.search-icon</span> &#123;</div><div class="line">	<span class="attribute">cursor</span>: pointer;</div><div class="line">	<span class="attribute">text-align</span>: center;</div><div class="line">	<span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#dadada</span>;</div><div class="line">	<span class="attribute">border-bottom-right-radius</span>: <span class="number">4px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="嵌套变量"><a href="#嵌套变量" class="headerlink" title="嵌套变量"></a>嵌套变量</h4><p>还可以对变量进行嵌套，即在一个变量中使用另一个变量</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@louzhedong:</span> <span class="string">"My name is louzhedong"</span>;</div><div class="line"><span class="variable">@var:</span> <span class="string">"louzhedong"</span>;</div><div class="line"><span class="attribute">content</span>: <span class="variable">@@var</span>;</div></pre></td></tr></table></figure>
-<p>将被编译为</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">content</span>: "<span class="selector-tag">My</span> <span class="selector-tag">name</span> <span class="selector-tag">is</span> <span class="selector-tag">louzhedong</span>";</div></pre></td></tr></table></figure>
-<h3 id="惰性加载（Lazy-Loading）"><a href="#惰性加载（Lazy-Loading）" class="headerlink" title="惰性加载（Lazy Loading）"></a>惰性加载（Lazy Loading）</h3><p>less 与 es5一样，存在变量提升，对于变量的引用不需要考虑顺序，考虑如下示例</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.lazy-eval</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="variable">@var</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="variable">@var:</span> <span class="variable">@a</span>;</div><div class="line"><span class="variable">@a:</span> <span class="number">9%</span>;</div></pre></td></tr></table></figure>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.lazy-eval</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="variable">@var</span>;</div><div class="line">	<span class="variable">@a:</span> <span class="number">9%</span>;</div><div class="line">&#125;</div><div class="line"><span class="variable">@var:</span> <span class="variable">@a</span>;</div><div class="line"><span class="variable">@a:</span> <span class="number">100%</span>;</div></pre></td></tr></table></figure>
-<p>上述两段代码都将被编译成</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.lazy-eval</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">9%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
+          什么是lessless是一门预处理语言，扩展了css语言，增加了变量、Mixin、函数等特性，使css更易维护和扩展。less完全兼容css语法，可以完全使用css语法。
+变量在less中可以使用@符号来定义变量。比较常见的是一些颜色值、宽高之类的属性，他们往往会在一个项目中重复出现，若直接定义，会
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/19/less用法总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -464,14 +443,18 @@
       
         
           
-            <h3 id="需求：在博客中添加一个个人的音乐播放器，在浏览网页时可以放松下心情"><a href="#需求：在博客中添加一个个人的音乐播放器，在浏览网页时可以放松下心情" class="headerlink" title="需求：在博客中添加一个个人的音乐播放器，在浏览网页时可以放松下心情"></a>需求：在博客中添加一个个人的音乐播放器，在浏览网页时可以放松下心情</h3><p>首先要在网易云主页获取歌曲的外链，对于自己的歌单可以将之分享出去，然后再获取外链。类似下图</p>
-<p>￼<img src="../images/outlink.png" alt=""></p>
-<p>进入后复制iframe代码</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"no"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">marginheight</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">330</span> <span class="attr">height</span>=<span class="string">450</span> <span class="attr">src</span>=<span class="string">"//music.163.com/outchain/player?type=0&amp;id=84390120&amp;auto=1&amp;height=430"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>next的界面文件都位于hexo/themes/next/layout的文件中</p>
-<p>如果想将播放器放于sidebar中，则将iframe代码置于_macro文件夹中的sidebar.swig文件中，如果想放置于主页中，则置于_layout.swig文件中即可。<br>最后保存提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g -d</div></pre></td></tr></table></figure>
-          
+          需求：在博客中添加一个个人的音乐播放器，在浏览网页时可以放松下心情首先要在网易云主页获取歌曲的外链，对于自己的歌单可以将之分享出去，然后再获取外链。类似下图
+￼
+进入后复制iframe代码
+1&lt;iframe frameborder="no" border="0" marginwidth="0"
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/18/在Hexo中添加网易云音乐/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -581,17 +564,15 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/18/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
